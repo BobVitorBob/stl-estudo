@@ -40,6 +40,12 @@ public class Main extends Worker {
     private static String inputPath;
     private static boolean isLocalSearch;
 
+    private static int tournamentSize;
+
+    private static int populationSize;
+
+    private static int numberIterations;
+
     public static void main(String[] args) throws IOException {
         String errorMessage = "notFound";
         String random = Args.a(args, "seed", errorMessage);
@@ -49,9 +55,14 @@ public class Main extends Worker {
         seed = Integer.parseInt(random);
         isLocalSearch = Boolean.parseBoolean(Args.a(args, "local_search", null));
         grammarPath = Args.a(args, "grammar", null);
-        outputPath = Args.a(args, "output", "./output/") + isLocalSearch + "." + seed + ".csv";
-        out = new PrintStream(new FileOutputStream(outputPath, true), true);
+        tournamentSize = Integer.parseInt(Args.a(args, "tournament_size", "5"));
+        populationSize = Integer.parseInt(Args.a(args, "population_size", "500"));
+        numberIterations = Integer.parseInt(Args.a(args, "number_iterations", "50"));
         inputPath = Args.a(args, "input", null);
+        String[] list = inputPath.split("/");
+        String outputFileName = list[list.length - 1];
+        outputPath = Args.a(args, "output", "./output/") + outputFileName;
+        out = new PrintStream(new FileOutputStream(outputPath, true), true);
         new Main(args);
     }
 
@@ -80,15 +91,15 @@ public class Main extends Worker {
                     p.getSolutionMapper(),
                     new GrammarRampedHalfAndHalf<>(0, 12, p.getGrammar()),
                     PartialComparator.from(Double.class).comparing(Individual::getFitness),
-                    500,
+                    populationSize,
                     operators,
-                    new Tournament(5),
+                    new Tournament(tournamentSize),
                     new Worst(),
                  500,
                     true,
                 100
         );
-        Collection<AbstractTreeNode> solutions = evolver.solve(Misc.cached(p.getFitnessFunction(), 10), new Iterations(50),
+        Collection<AbstractTreeNode> solutions = evolver.solve(Misc.cached(p.getFitnessFunction(), 10), new Iterations(numberIterations),
                 r, this.executorService, Listener.onExecutor(new PrintStreamListener<>(out, false, 10,
                         ",", ",",  new Basic(), new Population(), new Diversity(), new BestInfo("%5.3f"),
                         event -> List.of(new Item("serialized", event.getOrderedPopulation().firsts().iterator().next().getSolution().toString(), "%s"))), this.executorService));
