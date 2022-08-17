@@ -4,3 +4,5 @@ STLRulesEvolutionaryInferenceNoClass.iml
 *.csv
 *.png
 *.jpg
+data/*
+*.class
