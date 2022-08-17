@@ -92,7 +92,7 @@ public abstract class AbstractTreeNode implements Sized {
             children = "[" + this.firstChild.toString() + "]";
         }
         else {
-            children = "[" + this.firstChild.toString() + "," + this.secondChild.toString() + "]";
+            children = "[" + this.firstChild.toString() + ";" + this.secondChild.toString() + "]";
         }
         return this.getSymbol() + children;
     }
