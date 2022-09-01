@@ -1,22 +1,22 @@
 package it.units.malelab.learningstl.TreeNodes;
 
-import it.units.malelab.learningstl.BuildingBlocks.STLFormulaMapper;
 import eu.quanticol.moonlight.formula.DoubleDomain;
 import eu.quanticol.moonlight.monitoring.temporal.TemporalMonitor;
 import it.units.malelab.jgea.representation.tree.Tree;
+import it.units.malelab.learningstl.BuildingBlocks.STLFormulaMapper;
 
 import java.util.List;
 import java.util.Objects;
 
 
-public class AndTreeNode extends AbstractTreeNode {
+public class OrTreeNode extends AbstractTreeNode {
 
-    public AndTreeNode(List<Tree<String>> siblings, List<Tree<String>> ancestors) {
+    public OrTreeNode(List<Tree<String>> siblings, List<Tree<String>> ancestors) {
         super();
         this.firstChild = STLFormulaMapper.parseSubTree(siblings.get(0), ancestors);
         this.secondChild = STLFormulaMapper.parseSubTree(siblings.get(1), ancestors);
-        this.symbol = "AND";
-        this.func = x -> TemporalMonitor.andMonitor(this.firstChild.getOperator().apply(x), new DoubleDomain(),
+        this.symbol = "OR";
+        this.func = x -> TemporalMonitor.orMonitor(this.firstChild.getOperator().apply(x), new DoubleDomain(),
                 this.secondChild.getOperator().apply(x));
     }
 

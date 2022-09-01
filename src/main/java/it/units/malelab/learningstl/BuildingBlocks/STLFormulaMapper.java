@@ -46,6 +46,7 @@ public class STLFormulaMapper implements Function<Tree<String>, AbstractTreeNode
             case PROP -> new NumericTreeNode(siblings);
             case NOT -> new NotTreeNode(siblings, ancestors);
             case AND -> new AndTreeNode(siblings, ancestors);
+            case OR -> new OrTreeNode(siblings, ancestors);
             case UNTIL, SINCE -> new BinaryTemporalTreeNode(op, siblings, op.toString(), ancestors);
             default -> new UnaryTemporalTreeNode(op, siblings, op.toString(), ancestors);
         };
