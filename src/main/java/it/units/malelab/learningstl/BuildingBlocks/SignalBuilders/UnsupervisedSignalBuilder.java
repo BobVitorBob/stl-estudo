@@ -87,9 +87,6 @@ public class UnsupervisedSignalBuilder implements SignalBuilder<Signal<Map<Strin
                 }
                 trajectory.add(trajectoryRecord);
                 times.add(Long.parseLong(line[1].trim()));
-                if (signals.size() >= 10) {
-                    isFinished = true;
-                }
             }
         }
         createSignalAndUpdate(trajectory, times, signals);
