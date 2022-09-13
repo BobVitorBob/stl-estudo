@@ -7,7 +7,6 @@ import it.units.malelab.learningstl.LocalSearch.LocalSearch;
 
 import java.io.IOException;
 import java.util.*;
-import java.util.function.BiFunction;
 
 
 public class UnsupervisedFitnessFunction extends AbstractFitnessFunction<Signal<Map<String, Double>>> {
@@ -37,20 +36,10 @@ public class UnsupervisedFitnessFunction extends AbstractFitnessFunction<Signal<
         }
         return count / this.signals.size();
     }
-
     @Override
-    public BiFunction<AbstractTreeNode, double[], Double> getObjective() {
-        return (AbstractTreeNode node, double[] params) -> {node.propagateParameters(params);
-            double count = 0.0;
-            for (Signal<Map<String, Double>> s : this.signals) {
-                if (s.size() <= node.getNecessaryLength()) {
-                    count += PENALTY_VALUE;
-                }
-                else {
-                    count +=  Math.abs(node.getOperator().apply(s).monitor(s).valueAt(s.end()));
-                }
-            }
-            return count / this.signals.size();};
+    public Double apply(AbstractTreeNode monitor, double[] params) {
+        monitor.propagateParameters(params);
+        return apply(monitor);
     }
 
 }

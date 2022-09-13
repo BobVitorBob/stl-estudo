@@ -34,7 +34,7 @@ public class LocalSearch {
         ObjectiveFunction function = point -> {
             final double[] p = point;
             point = IntStream.range(0, point.length).mapToDouble(i -> lb[i] + p[i] * (ub[i] - lb[i])).toArray();
-            return ff.getObjective().apply(monitor, point);
+            return ff.apply(monitor, point);
         };
         GPOptimisation gpo = createOptimizer(numBounds, maxIterations);
         double[] lbU = IntStream.range(0, lb.length).mapToDouble(i -> 0).toArray();

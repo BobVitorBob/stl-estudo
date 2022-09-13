@@ -22,8 +22,6 @@ public abstract class AbstractFitnessFunction<T> implements Function<AbstractTre
 
     public SignalBuilder<T> getSignalBuilder() {return this.signalBuilder;}
 
-    public abstract BiFunction<AbstractTreeNode, double[], Double> getObjective();
-
     public List<T> getPositiveTraining() {
         return null;
     }
@@ -48,4 +46,5 @@ public abstract class AbstractFitnessFunction<T> implements Function<AbstractTre
         return (isNegative) ? - temp : temp;
     }
 
+    public abstract Double apply(AbstractTreeNode monitor, double[] params);
 }
