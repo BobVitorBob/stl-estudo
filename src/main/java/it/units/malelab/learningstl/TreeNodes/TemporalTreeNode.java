@@ -27,7 +27,7 @@ public abstract class TemporalTreeNode extends AbstractTreeNode {
     }
 
     public String getSymbol() {
-        return super.getSymbol() + " I=[" + this.start + ", " + this.end + "]";
+        return super.getSymbol() + " I=[" + this.start + "; " + this.end + "]";
     }
 
     private void equipTemporalOperator(List<Tree<String>> siblings, String message) {
