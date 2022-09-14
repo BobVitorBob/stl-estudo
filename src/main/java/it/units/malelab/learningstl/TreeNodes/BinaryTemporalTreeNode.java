@@ -28,7 +28,7 @@ public class BinaryTemporalTreeNode extends TemporalTreeNode {
 
     @Override
     public int getNecessaryLength() {
-        return Math.max(this.firstChild.getNecessaryLength(), this.secondChild.getNecessaryLength()) + this.end;
+        return Math.max(Math.max(this.firstChild.getNecessaryLength(), this.secondChild.getNecessaryLength()), this.end);
     }
 
     @Override

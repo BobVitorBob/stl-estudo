@@ -25,7 +25,7 @@ public class UnaryTemporalTreeNode extends TemporalTreeNode {
 
     @Override
     public int getNecessaryLength() {
-        return this.firstChild.getNecessaryLength() + this.end;
+        return Math.max(this.firstChild.getNecessaryLength(), this.end);
     }
 
     @Override
