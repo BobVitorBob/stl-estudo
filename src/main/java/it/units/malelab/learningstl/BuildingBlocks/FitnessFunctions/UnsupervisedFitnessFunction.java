@@ -27,11 +27,13 @@ public class UnsupervisedFitnessFunction extends AbstractFitnessFunction<Signal<
             monitor.propagateParameters(newParams);
         }
         for (Signal<Map<String, Double>> s : this.signals) {
-            if (s.size() <= monitor.getNecessaryLength()) {
+            if (s.end() <= monitor.getNecessaryLength()) {
                 count += PENALTY_VALUE;
             }
             else {
-                count +=  Math.abs(monitor.getOperator().apply(s).monitor(s).valueAt(s.end()));
+                Signal<Double> signalEval = monitor.getOperator().apply(s).monitor(s);
+                double avg = signalEval.reduce((pair, sum) -> sum + Math.abs(pair.getSecond()), 0.0) / signalEval.end();
+                count += avg;
             }
         }
         return count / this.signals.size();
