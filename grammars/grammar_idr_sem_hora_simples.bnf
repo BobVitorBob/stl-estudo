@@ -1,0 +1,11 @@
+<prop> ::= .prop <num_var> <comp> <num>
+<expr> ::= <prop> | <simple_op_first_level> | <modal_op>
+<simple_op_first_level> ::= .not <expr> | .and <expr> <expr>
+<modal_op> ::= .historically <expr_second_level> <interval_symbol> <interval_symbol> | .once <expr_second_level> <interval_symbol> <interval_symbol> | .since <expr_second_level> <interval_symbol> <interval_symbol> <expr_second_level>
+<expr_second_level> ::= .not <simple_op_second_level> | .and <simple_op_second_level> <simple_op_second_level>
+<simple_op_second_level> ::= <prop> | <expr_second_level>
+<comp> ::= < | >
+<num_var> ::= tempsolocm40cm | tempsolocm40cm_diff
+<num> ::= <digit> <digit> <digit>
+<interval_symbol> ::= <digit> <digit>
+<digit> ::= 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 0
