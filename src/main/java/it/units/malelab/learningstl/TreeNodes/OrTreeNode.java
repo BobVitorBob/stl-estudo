@@ -26,6 +26,21 @@ public class OrTreeNode extends AbstractTreeNode {
     }
 
     @Override
+    public int getStart() {
+        return Math.min(this.firstChild.getStart(), this.secondChild.getStart());
+    }
+
+    @Override
+    public int getEnd() {
+        return Math.max(this.firstChild.getEnd(), this.secondChild.getEnd());
+    }
+
+    @Override
+    public boolean isTemporal() {
+        return false;
+    }
+
+    @Override
     public void getVariablesAux(List<String[]> temp) {
         this.firstChild.getVariablesAux(temp);
         this.secondChild.getVariablesAux(temp);

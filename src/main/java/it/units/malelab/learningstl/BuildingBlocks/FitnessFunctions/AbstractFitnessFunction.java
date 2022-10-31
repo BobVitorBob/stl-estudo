@@ -12,7 +12,9 @@ import java.util.function.Function;
 
 public abstract class AbstractFitnessFunction<T> implements Function<AbstractTreeNode, Double> {
 
-    public final static double PENALTY_VALUE = 1.0;
+    public final static double PENALTY_VALUE_MISS = 1.0;
+    public final static double PENALTY_VALUE_MISSING_VALUE = 1.0;
+    public final static double PENALTY_VALUE_MODAL_OUT_OF_RANGE = 100;
     protected SignalBuilder<T> signalBuilder;
     protected final boolean isLocalSearch;
 
@@ -39,8 +41,10 @@ public abstract class AbstractFitnessFunction<T> implements Function<AbstractTre
     }
 
     public double monitorSignal(Signal<Map<String, Double>> signal, AbstractTreeNode solution, boolean isNegative) {
+        int a = solution.getNecessaryLength();
+        int b = signal.size();
         if (signal.size() <= solution.getNecessaryLength()) {
-            return - PENALTY_VALUE;
+            return - PENALTY_VALUE_MODAL_OUT_OF_RANGE;
         }
         double temp = solution.getOperator().apply(signal).monitor(signal).valueAt(signal.end());
         return (isNegative) ? - temp : temp;

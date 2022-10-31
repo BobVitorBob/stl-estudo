@@ -42,6 +42,11 @@ public abstract class AbstractTreeNode implements Sized {
         return ans;
     }
 
+    public abstract int getStart();
+    public abstract int getEnd();
+
+    public abstract boolean isTemporal();
+
     public abstract void getVariablesAux(List<String[]> temp);
 
     public abstract int getNumBounds();

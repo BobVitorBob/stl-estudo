@@ -24,6 +24,23 @@ public class NotTreeNode extends AbstractTreeNode {
     }
 
     @Override
+    public int getStart() {
+        return this.firstChild.getStart();
+    }
+
+    @Override
+    public int getEnd() {
+        return this.firstChild.getEnd();
+    }
+
+    @Override
+    public boolean isTemporal() {
+        return false;
+    }
+
+
+
+    @Override
     public void getVariablesAux(List<String[]> temp) {
         this.firstChild.getVariablesAux(temp);
     }

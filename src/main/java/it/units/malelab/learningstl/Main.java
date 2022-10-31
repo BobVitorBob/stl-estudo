@@ -46,6 +46,8 @@ public class Main extends Worker {
 
     private static int numberIterations;
 
+    private static List<String> necessaryVariables;
+
     public static void main(String[] args) throws IOException {
         String errorMessage = "notFound";
         String random = Args.a(args, "seed", errorMessage);
@@ -58,6 +60,7 @@ public class Main extends Worker {
         tournamentSize = Integer.parseInt(Args.a(args, "tournament_size", "5"));
         populationSize = Integer.parseInt(Args.a(args, "population_size", "500"));
         numberIterations = Integer.parseInt(Args.a(args, "number_iterations", "50"));
+        necessaryVariables = List.of(Args.a(args, "necessaryVariables", "").split(","));
         inputPath = Args.a(args, "input", null);
         String[] list = inputPath.split("/");
         String outputFileName = list[list.length - 1];
@@ -81,7 +84,7 @@ public class Main extends Worker {
 
     private void evolution() throws IOException, ExecutionException, InterruptedException {
         Random r = new Random(seed);
-        UnsupervisedFitnessFunction f = new UnsupervisedFitnessFunction(inputPath, isLocalSearch);
+        UnsupervisedFitnessFunction f = new UnsupervisedFitnessFunction(inputPath, isLocalSearch, necessaryVariables);
         STLFormulaMapper m = new STLFormulaMapper();
         final ProblemClass<Signal<Map<String, Double>>> p = new ProblemClass<>(grammarPath, f, m);
         Map<GeneticOperator<Tree<String>>, Double> operators = new LinkedHashMap<>();

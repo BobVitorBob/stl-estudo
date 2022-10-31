@@ -50,6 +50,21 @@ public class NumericTreeNode extends AbstractTreeNode {
     }
 
     @Override
+    public int getStart() {
+        return Integer.MAX_VALUE;
+    }
+
+    @Override
+    public int getEnd() {
+        return -1;
+    }
+
+    @Override
+    public boolean isTemporal() {
+        return false;
+    }
+
+    @Override
     public void getVariablesAux(List<String[]> temp) {
         temp.add(new String[] {this.var, this.cs.toString(), "null"});
     }

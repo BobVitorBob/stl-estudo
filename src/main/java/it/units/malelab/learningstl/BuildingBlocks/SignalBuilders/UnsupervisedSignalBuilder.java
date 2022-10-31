@@ -114,11 +114,16 @@ public class UnsupervisedSignalBuilder implements SignalBuilder<Signal<Map<Strin
         int length = times.size();
         double time = 0.0;
         for (int i=0; i < length; ++i) {
+            if (trajectory.get(i) == null) {
+                int a = 2;
+            }
             currSignal.add(time, trajectory.get(i));
             ++time;
         }
         currSignal.endAt(time);
         ++time;
+        if (currSignal.valueAt(0) == null) time--;
+        if (currSignal.valueAt(0) == null) time++;
         signals.add(currSignal);
         trajectory.clear();
         times.clear();
